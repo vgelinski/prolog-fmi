@@ -48,7 +48,6 @@ partition(X, [H|T], [H|L], R) :- H < X, partition(X, T, L, R).
 partition(X, [H|T], L, [H|R]) :- H >= X, partition(X, T, L, R).
 
 qsort([], []).
-qsort([S], [S]).
 qsort(S, [H|T]) :- partition(H, T, L, R), qsort(LS, L), qsort(RS, R), cnct(LS, [H|RS], S).
 
 push(X, e, t(e, X, e)).
