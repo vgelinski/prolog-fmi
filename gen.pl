@@ -22,12 +22,17 @@ fib(F, N) :- N > 2,
 
 fib(F) :- n(N), fib(F, N).
 
-spl(X, [X]).
-spl(L, [A|R]) :- cnct(A, B, L), A \= [], B \= [], spl(B, R).
+spl([], []).
+spl(L, [A|R]) :- cnct(A, B, L), A \= [], spl(B, R).
 
 list1([1]).
 list1([1|L]) :- list1(L).
 
-sum_list(X, L) :- len(N, L), N =< X.
+fib1(1, 1).
+fib1(B, C) :- fib1(A, B), C is A + B.
 
-%sum_spl(X, L) :- 
+fib1(F) :- fib1(F, _).
+
+d(0, []).
+d(N, [X|T]) :- between(1, X, N), N1 is N - X, d(N1, T).
+
