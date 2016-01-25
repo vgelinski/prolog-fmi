@@ -80,8 +80,6 @@ to_l(X, L) :-X >=10,  XL is mod(X, 10), XNL is div(X, 10), to_l(XNL, L1), cnct(L
 hail([_], []).
 hail([H|T], [H|HT]) :- hail(T, HT).
 
-sumv([X], [Y], [Z]) :- Z is X + Y, Z < 10.
-sumv([X], [Y], [1, Z]) :- Z1 is X + Y, Z1 >= 10, Z is Z1 - 10.
 sumv(X, [], X).
 sumv([], Y, Y).
 sumv(X, Y, Z) :- last(XL, X),
