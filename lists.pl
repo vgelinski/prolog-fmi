@@ -65,3 +65,40 @@ tsort(S, A) :- mt(T, A), t2l(T, S).
 
 len(0, []).
 len(N, [_|L]) :- len(N1, L), N is N1 + 1.
+
+p(X) :- member(Y, X), member(A, Y), B is 5 - A, member(B, Y).
+
+first_digit(X, X) :- X < 10.
+first_digit(X, Y) :- X >= 10, X1 is div(X, 10), first_digit(X1, Y).
+
+to_i(X, [X]).
+to_i(X, [H|T]) :- to_i(T1, T), len(L, T), H1 is 10 ** L, X is H1 * H + T1.
+
+to_l(X, [X]) :- X < 10.
+to_l(X, L) :-X >=10,  XL is mod(X, 10), XNL is div(X, 10), to_l(XNL, L1), cnct(L1, [XL], L).
+
+hail([_], []).
+hail([H|T], [H|HT]) :- hail(T, HT).
+
+sumv([X], [Y], [Z]) :- Z is X + Y, Z < 10.
+sumv([X], [Y], [1, Z]) :- Z1 is X + Y, Z1 >= 10, Z is Z1 - 10.
+sumv(X, [], X).
+sumv([], Y, Y).
+sumv(X, Y, Z) :- last(XL, X),
+                last(YL, Y),
+                S is XL + YL,
+                S < 10,
+                hail(X, XH),
+                hail(Y, YH),
+                sumv(XH, YH, ZH),
+                cnct(ZH, [S], Z).
+sumv(X, Y, Z) :- last(XL, X),
+                last(YL, Y),
+                S is XL + YL,
+                S >= 10,
+                S1 is S - 10,
+                hail(X, XH),
+                hail(Y, YH),
+                sumv(XH, YH, ZH),
+                cnct(ZH, [0], Z1),
+                sumv(Z1, [1, S1], Z).
